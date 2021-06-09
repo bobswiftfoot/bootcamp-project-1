@@ -66,12 +66,13 @@ async function GetPokemonData(pokemonName)
     return pokeData;
 }
 
-async function main()
-{
-    var data = await GetPokemonData("charizard");
-    console.log(data);
-    var data = await GetPokemonData("spoink");
-    console.log(data);
-}
+// //Used for testing
+// async function main()
+// {
+//     var data = await GetPokemonData("charizard");
+//     console.log(data);
+//     var data = await GetPokemonData("spoink");
+//     console.log(data);
+// }
 
-main();
+// main();

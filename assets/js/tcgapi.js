@@ -5,7 +5,16 @@ async function GetTCGDataByName(pokemonName)
 
     //Get inital call data
     let pokemonResponse = await fetch(apiString)
-    let pokemonData = await pokemonResponse.json();
+    var pokemonData = null;
+    if(pokemonResponse.ok)
+    {
+        pokemonData = await pokemonResponse.json();
+    }
+    else
+    {
+        console.log(pokemonResponse.status + ":" + pokemonResponse.statusText);
+        return null;
+    }
     console.log(pokemonData);
 
     //Get all the tcg images that are returned. (Api only returns up to 100 results)
@@ -24,7 +33,16 @@ async function GetTCGDataByNumber(pokemonNumber)
     
     //Get inital call data
     let pokemonResponse = await fetch(apiString)
-    let pokemonData = await pokemonResponse.json();
+    var pokemonData = null;
+    if(pokemonResponse.ok)
+    {
+        pokemonData = await pokemonResponse.json();
+    }
+    else
+    {
+        console.log(pokemonResponse.status + ":" + pokemonResponse.statusText);
+        return null;
+    }
     console.log(pokemonData);
 
     //Get all the tcg images that are returned. (Api only returns up to 100 results)
@@ -37,13 +55,13 @@ async function GetTCGDataByNumber(pokemonNumber)
     return tcgImgs;
 }
 
-//Used for testing
-async function main()
-{
-    var data = await GetTCGDataByName("charizard");
-    console.log(data);
-    var data = await GetTCGDataByNumber("18");
-    console.log(data);
-}
+// //Used for testing
+// async function main()
+// {
+//     var data = await GetTCGDataByName("charizard");
+//     console.log(data);
+//     var data = await GetTCGDataByNumber("18");
+//     console.log(data);
+// }
 
-main();
+// main();

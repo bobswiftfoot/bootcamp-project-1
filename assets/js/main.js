@@ -17,7 +17,7 @@ async function SearchPokemonByName(pokemonName)
     //Display data to html
     document.querySelector(".official-artwork").src = pokemonData.officalArtwork;
     document.querySelector(".pokemon-name").textContent = pokemonData.name;
-    document.querySelector(".pokedex-number").textContent = pokemonData.pokedexNum;
+    document.querySelector(".pokemon-number").textContent = pokemonData.pokedexNum;
     document.querySelector(".pokemon-generation").textContent = pokemonData.generation;
     document.querySelector(".pokemon-type").textContent = pokemonData.type;
     document.querySelector(".evolution-chain").textContent = pokemonData.evolutionChain;

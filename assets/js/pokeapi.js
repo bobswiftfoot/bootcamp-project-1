@@ -76,7 +76,7 @@ async function GetPokemonData(pokemonName)
     }
     else
     {
-        console.log(speciesResponse.status + ":" + speciesResponse.statusText);
+        console.log(evoResponse.status + ":" + evoResponse.statusText);
         return null; 
     }
     console.log(evoData);

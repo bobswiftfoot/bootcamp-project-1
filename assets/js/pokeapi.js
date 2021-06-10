@@ -19,8 +19,17 @@ async function GetPokemonData(pokemonName)
     var apiString = "https://pokeapi.co/api/v2/pokemon/" + pokemonName.trim();
 
     //Get inital call data
-    let pokemonResponse = await fetch(apiString)
-    let pokemonData = await pokemonResponse.json();
+    let pokemonResponse = await fetch(apiString);
+    var pokemonData = null;
+    if(pokemonResponse.ok)
+    {
+        pokemonData = await pokemonResponse.json();
+    }
+    else
+    {
+        console.log(pokemonResponse.status + ":" + pokemonResponse.statusText);
+        return null;
+    }
     console.log(pokemonData);
 
     //Create a string of types in the case of 2 type pokemon
@@ -41,16 +50,35 @@ async function GetPokemonData(pokemonName)
 
     //Call species url to get generation name and flavor text
     let speciesResponse = await fetch(pokemonData.species.url);
-    let speciesData = await speciesResponse.json();
+    var speciesData = null;
+    if(speciesResponse.ok)
+    {
+        speciesData = await speciesResponse.json();
+    }
+    else
+    {
+        console.log(speciesResponse.status + ":" + speciesResponse.statusText);
+        return null; 
+    }
     console.log(speciesData);
 
+    //Replace newlines and form feeds with spaces to make this look nicer
     var flavorText =  speciesData.flavor_text_entries[0].flavor_text;
     flavorText = flavorText.replace(/\n/g, ' ')
     flavorText = flavorText.replace("\f", " ");
 
     //Call evolution chain url
     let evoResponse = await fetch(speciesData.evolution_chain.url);
-    let evoData = await evoResponse.json();
+    var evoData = null;
+    if(evoResponse.ok)
+    {
+        evoData = await evoResponse.json();
+    }
+    else
+    {
+        console.log(speciesResponse.status + ":" + speciesResponse.statusText);
+        return null; 
+    }
     console.log(evoData);
 
     //Start the string with the first name

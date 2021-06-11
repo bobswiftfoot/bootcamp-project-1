@@ -15,8 +15,9 @@ class PokemonData
 
 async function GetPokemonData(pokemonName)
 {
-    pokemonName = pokemonName.toLowerCase();
-    var apiString = "https://pokeapi.co/api/v2/pokemon/" + pokemonName.trim();
+    if(typeof(pokemonName) === typeof(""))
+        pokemonName = pokemonName.toLowerCase().trim();
+    var apiString = "https://pokeapi.co/api/v2/pokemon/" + pokemonName;
 
     //Get inital call data
     let pokemonResponse = await fetch(apiString);

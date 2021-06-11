@@ -29,7 +29,7 @@ async function GetTCGDataByName(pokemonName)
 
 async function GetTCGDataByNumber(pokemonNumber)
 {
-    var apiString = "https://api.pokemontcg.io/v1/cards?nationalPokedexNumber=" + pokemonNumber.trim();
+    var apiString = "https://api.pokemontcg.io/v1/cards?nationalPokedexNumber=" + pokemonNumber;
     
     //Get inital call data
     let pokemonResponse = await fetch(apiString)

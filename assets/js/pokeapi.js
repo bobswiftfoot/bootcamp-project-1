@@ -63,10 +63,19 @@ async function GetPokemonData(pokemonName)
     }
     console.log(speciesData);
 
-    //Replace newlines and form feeds with spaces to make this look nicer
-    var flavorText =  speciesData.flavor_text_entries[0].flavor_text;
-    flavorText = flavorText.replace(/\n/g, ' ')
-    flavorText = flavorText.replace("\f", " ");
+    //Search for first flavor text in en
+    var flavorText = "";
+    for(var i = 0; i < speciesData.flavor_text_entries.length; i++)
+    {
+        if(speciesData.flavor_text_entries[i].language.name == "en")
+        {
+            //Replace newlines and form feeds with spaces to make this look nicer
+            flavorText = speciesData.flavor_text_entries[i].flavor_text;
+            flavorText = flavorText.replace(/\n/g, ' ')
+            flavorText = flavorText.replace("\f", " ");
+            break;
+        }
+    }
 
     //Call evolution chain url
     let evoResponse = await fetch(speciesData.evolution_chain.url);

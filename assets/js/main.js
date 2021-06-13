@@ -199,4 +199,23 @@ function CheckPreviousSearchesByNumber(pokemonNum)
      return false;
 }
 
+//Search for pokemon
+document.querySelector(".button").addEventListener("click", function () 
+{
+    var searchTerm = document.querySelector(".input-group-field").value;
+    if(searchTerm == "")
+        return;
+
+    if(Number.isInteger(parseInt(searchTerm)))
+        SearchPokemonByNumber(parseInt(searchTerm));
+    else
+        SearchPokemonByName(searchTerm);
+});
+
+//Randomize a pokemon to search
+// document.querySelector(".random-button").addEventListener("click", function () 
+// {
+//     RandomizePokemon();
+// });
+
 LoadSearchData();

@@ -2,3 +2,94 @@ header {
     text-align: center;
     background-color: blue;
 }
+
+/*Change the color of the card divider header based on the pokemon type*/
+.Normal
+{
+    background: tan;
+}
+
+.Fire
+{
+    background: orange;
+}
+
+.Water
+{
+    background: lightskyblue;
+}
+
+.Grass
+{
+    background: green;
+}
+
+.Electric
+{
+    background: yellow;
+}
+
+.Ice
+{
+    background: aqua;
+}
+
+.Fighting
+{
+    background: red;
+}
+
+.Poison
+{
+    background: purple;
+}
+
+.Ground
+{
+    background: burlywood;
+}
+
+.Flying
+{
+    background: violet;
+}
+
+.Psychic
+{
+    background: hotpink;
+}
+
+.Bug
+{
+    background: darkkhaki;
+}
+
+.Rock
+{
+    background: darkgoldenrod;
+}
+
+.Ghost
+{
+    background: darkmagenta;
+}
+
+.Dark
+{
+    background: brown;
+}
+
+.Dragon
+{
+    background: darkviolet;
+}
+
+.Steel
+{
+    background: gray;
+}
+
+.Fairy
+{
+    background: pink;
+}

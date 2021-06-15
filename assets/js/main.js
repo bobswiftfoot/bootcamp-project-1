@@ -104,6 +104,11 @@ function DisplayData(pokemonData, tcgData)
     document.querySelector(".evolution-chain").textContent = "Evolutions: " + pokemonData.evolutionChain;
     document.querySelector(".flavor-text").textContent = pokemonData.flavorText;
 
+    var mainType = "";
+    mainType = pokemonData.type.split(",")[0];
+    console.log(mainType);
+    document.querySelector(".card-divider").classList = "card-divider " + mainType;
+
     //Display TCG Cards
     while (true)
     {

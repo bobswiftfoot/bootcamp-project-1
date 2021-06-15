@@ -13,7 +13,8 @@
 
 <body>
   <header>
-    <img src="https://fontmeme.com/temporary/c43dedb6a88e4485768df65ea43a80b3.png" alt="">
+    <!--img src="https://fontmeme.com/temporary/c43dedb6a88e4485768df65ea43a80b3.png" alt=""-->
+    <h1>Pokemon Database</h1>
   </header>
 
   <!-- Pokemon Hero Section -->
@@ -25,49 +26,46 @@
 
   <!-- Official Artwork -->
   <section>
-    <div>
-      <img class="official-artwork" src=https://static1.gamerantimages.com/wordpress/wp-content/uploads/2019/11/pokemon-charmander.jpg />
-    </div>
-  </section>
+    <div class="grid-x">
+      <img class="official-artwork cell small-6" style="width: 300px;"/>
 
-  <!-- Search bar input -->
-  <section id="search bar">
-    <div class="input-group input-group-rounded">
-      <input class="input-group-field" type="search">
-      <div class="input-group-button">
-        <input type="submit" class="button secondary" value="Search">
+      <div class="input-group input-group-rounded cell small-12 medium-6 align-middle ">
+        <div class="grid-x">
+          <p class="cell small-12 flex-container-auto">Search for Pokemon Name or Pokedex Number:</p>
+          <input class="input-group-field cell small-12 flex-container-auto" type="search">
+          <button type="button" class="button primary cell small-6 search-button">Search</button>
+          <button type="button" class="button warning cell small-6 random-button">Random</button>
+          <p class="cell small-12 error-text"></p>
+        </div>
       </div>
     </div>
+
   </section>
 
   <!-- Pokemon Information -->
-  <section id="pokemon-information">
-    <div class="card" style="width: 300px;">
+  <div class="pokemon-information grid-x align-left">
+    <div class="card cell small-12 medium-6 large-2">
       <div class="card-divider">
-        <div>
-          <h1 class="pokemon-name">Charmander</h1>
-        </div>
+        <h1 class="pokemon-name"></h1>
       </div>
       <div>
-        <p class="pokemon-number">Pokedex #004</p>
+        <p class="pokemon-number"></p>
       </div>
       <div>
-        <p class="pokemon-generation">First Generation</p>
+        <p class="pokemon-generation"></p>
       </div>
       <div>
-        <p class="pokemon-type">Fire</p>
+        <p class="pokemon-type"></p>
       </div>
       <div>
-        <p class="evolution-chain">Charmander > Charmeleon > Charizard</p>
+        <p class="evolution-chain"></p>
       </div>
       <div>
-        <p class="flavor-text">Flavor Text</p>
+        <p class="flavor-text"></p>
       </div>
     </div>
-  </section>
-
-  <div class="row main-links tcg-rows">
   </div>
+
 
   <script src="./assets/js/pokeapi.js"></script>
   <script src="./assets/js/tcgapi.js"></script>

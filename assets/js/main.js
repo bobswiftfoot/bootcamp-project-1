@@ -15,22 +15,23 @@ async function SearchPokemonByName(pokemonName)
 {
     var found = CheckPreviousSearchesByName(pokemonName);
 
-    if(!found)
+    if (!found)
     {
         //Get Data from wrappers
         var pokemonData = await GetPokemonData(pokemonName);
-        if(pokemonData === null)
+        if (pokemonData === null)
         {
-            //TODO: Search failed: Add Error Handling
+            document.querySelector(".error-text").textContent = "Could not find: " + pokemonName;
             return;
         }
         var tcgData = await GetTCGDataByName(pokemonName);
-        if(tcgData === null)
+        if (tcgData === null)
         {
-            //TODO: Search failed: Add Error Handling
+            document.querySelector(".error-text").textContent = "Could not find: " + pokemonName;
             return;
         }
 
+        document.querySelector(".error-text").textContent = "";
         DisplayData(pokemonData, tcgData);
     }
 }
@@ -40,22 +41,22 @@ async function SearchPokemonByNumber(pokemonNumber)
 {
     var found = CheckPreviousSearchesByNumber(pokemonNumber);
 
-    if(!found)
+    if (!found)
     {
         //Get Data from wrappers
         var pokemonData = await GetPokemonData(pokemonNumber);
-        if(pokemonData === null)
+        if (pokemonData === null)
         {
-            //TODO: Search failed: Add Error Handling
+            document.querySelector(".error-text").textContent = "Could not find number: " + pokemonNumber;
             return;
         }
         var tcgData = await GetTCGDataByNumber(pokemonNumber);
-        if(tcgData === null)
+        if (tcgData === null)
         {
-            //TODO: Search failed: Add Error Handling
+            document.querySelector(".error-text").textContent = "Could not find number: " + pokemonNumber;
             return;
         }
-
+        document.querySelector(".error-text").textContent = "";
         DisplayData(pokemonData, tcgData);
     }
 }
@@ -65,27 +66,67 @@ function DisplayData(pokemonData, tcgData)
 {
     //Display data to html
     document.querySelector(".official-artwork").src = pokemonData.officalArtwork;
-    document.querySelector(".pokemon-name").textContent = pokemonData.name;
-    document.querySelector(".pokemon-number").textContent = pokemonData.pokedexNum;
-    document.querySelector(".pokemon-generation").textContent = pokemonData.generation;
-    document.querySelector(".pokemon-type").textContent = pokemonData.type;
-    document.querySelector(".evolution-chain").textContent = pokemonData.evolutionChain;
+    //Capalize the first letter
+    var pokemonName = pokemonData.name[0].toUpperCase() + pokemonData.name.slice(1);
+    document.querySelector(".pokemon-name").textContent = pokemonName;
+    document.querySelector(".pokemon-number").textContent = "Pokedex #: " + pokemonData.pokedexNum;
+    //Replace Roman numerals with intergers (pokemon generations only go to 8 so will hardcode it)
+    var generation = pokemonData.generation;
+    switch (generation)
+    {
+        case "generation-i":
+            generation = "Generation: 1";
+            break;
+        case "generation-ii":
+            generation = "Generation: 2";
+            break;
+        case "generation-iii":
+            generation = "Generation: 3";
+            break;
+        case "generation-iv":
+            generation = "Generation: 4";
+            break;
+        case "generation-v":
+            generation = "Generation: 5";
+            break;
+        case "generation-vi":
+            generation = "Generation: 6";
+            break;
+        case "generation-vii":
+            generation = "Generation: 7";
+            break;
+        case "generation-viii":
+            generation = "Generation: 8";
+            break;
+    }
+    document.querySelector(".pokemon-generation").textContent = generation;
+    document.querySelector(".pokemon-type").textContent = "Type(s): " + pokemonData.type;
+    document.querySelector(".evolution-chain").textContent = "Evolutions: " + pokemonData.evolutionChain;
     document.querySelector(".flavor-text").textContent = pokemonData.flavorText;
 
     //Display TCG Cards
-    var tcgRows = document.querySelector(".tcg-rows");
-    tcgRows.innerHTML = "";
-    var numArray = RandomNumbersNonRepeating(tcgData.length);
-    for(var i = 0; i < numArray.length; i++)
+    while (true)
+    {
+        var tcgCard = document.querySelector(".tcg-card");
+        if (tcgCard)
+        {
+            tcgCard.remove();
+        }
+        else
+            break;
+    }
+    var pokeInformation = document.querySelector(".pokemon-information");
+    //var numArray = RandomNumbersNonRepeating(tcgData.length);
+    for (var i = 0; i < tcgData.length; i++)
     {
         var divEl = document.createElement("div");
-        divEl.classList = "small-12 medium-4 columns";
+        divEl.classList = "tcg-card cell small-12 medium-6 large-2";
 
         var imgEl = document.createElement("img");
-        imgEl.src = tcgData[numArray[i]];
+        imgEl.src = tcgData[i];
 
         divEl.append(imgEl);
-        tcgRows.append(divEl);
+        pokeInformation.append(divEl);
     }
 
     SaveSearchData(pokemonData, tcgData);
@@ -107,21 +148,21 @@ function RandomNumbersNonRepeating(maxNum)
     var length = Math.min(maxNumbersToDisplay, maxNum);
     var numArray = [];
 
-    while(length != numArray.length)
+    while (length != numArray.length)
     {
         var randomNumber = Math.floor(Math.random() * maxNum);
 
         var found = false;
 
-        for(var j = 0; j < numArray.length; j++)
+        for (var j = 0; j < numArray.length; j++)
         {
-            if(numArray[j] == randomNumber)
+            if (numArray[j] == randomNumber)
             {
                 found = true;
                 break;
             }
         }
-        if(!found)
+        if (!found)
             numArray.push(randomNumber);
     }
 
@@ -133,9 +174,9 @@ function RandomNumbersNonRepeating(maxNum)
 function SaveSearchData(pokemonData, tcgData) 
 {
     //Add search to previous search list
-    for(var i = 0; i < previousSearches.length; i++)
+    for (var i = 0; i < previousSearches.length; i++)
     {
-        if(previousSearches[i].pokemonName == pokemonData.name)
+        if (previousSearches[i].pokemonName == pokemonData.name)
         {
             //Already in previous searches
             return;
@@ -143,7 +184,7 @@ function SaveSearchData(pokemonData, tcgData)
     }
 
     //Only save up to 10 searches
-    if(previousSearches.length >= 10)
+    if (previousSearches.length >= 10)
         previousSearches.shift();
 
     var data = new SaveData(pokemonData.name, pokemonData, tcgData);
@@ -158,7 +199,7 @@ function LoadSearchData()
     previousSearches = JSON.parse(localStorage.getItem("previousSearches"));
 
     //If there is no previous Searches, then load a random pokemon
-    if(!previousSearches)
+    if (!previousSearches)
     {
         previousSearches = [];
         RandomizePokemon();
@@ -172,50 +213,52 @@ function LoadSearchData()
 //Check previous searches for save data to save api calls
 function CheckPreviousSearchesByName(pokemonName) 
 {
-     //Add search to previous search list
-     for(var i = 0; i < previousSearches.length; i++)
-     {
-         if(previousSearches[i].pokemonName == pokemonName)
-         {
+    //Add search to previous search list
+    for (var i = 0; i < previousSearches.length; i++)
+    {
+        if (previousSearches[i].pokemonName == pokemonName)
+        {
             DisplayData(previousSearches[i].pokemonData, previousSearches[i].tcgData);
             return true;
-         }
-     }
-     return false;
+        }
+    }
+    return false;
 }
 
 //Check previous searches for save data to save api calls
 function CheckPreviousSearchesByNumber(pokemonNum) 
 {
-     //Add search to previous search list
-     for(var i = 0; i < previousSearches.length; i++)
-     {
-         if(previousSearches[i].pokemonData.pokemonNum == pokemonNum)
-         {
+    //Add search to previous search list
+    for (var i = 0; i < previousSearches.length; i++)
+    {
+        if (previousSearches[i].pokemonData.pokemonNum == pokemonNum)
+        {
             DisplayData(previousSearches[i].pokemonData, previousSearches[i].tcgData);
             return true;
-         }
-     }
-     return false;
+        }
+    }
+    return false;
 }
 
 //Search for pokemon
-document.querySelector(".button").addEventListener("click", function () 
+document.querySelector(".search-button").addEventListener("click", function () 
 {
     var searchTerm = document.querySelector(".input-group-field").value;
-    if(searchTerm == "")
+    document.querySelector(".input-group-field").value = "";
+    if (searchTerm == "")
         return;
 
-    if(Number.isInteger(parseInt(searchTerm)))
+    if (Number.isInteger(parseInt(searchTerm)))
         SearchPokemonByNumber(parseInt(searchTerm));
     else
         SearchPokemonByName(searchTerm);
 });
 
 //Randomize a pokemon to search
-// document.querySelector(".random-button").addEventListener("click", function () 
-// {
-//     RandomizePokemon();
-// });
+document.querySelector(".random-button").addEventListener("click", function () 
+{
+    document.querySelector(".input-group-field").value = "";
+    RandomizePokemon();
+});
 
 LoadSearchData();

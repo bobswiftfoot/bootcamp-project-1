@@ -33,17 +33,17 @@ async function GetPokemonData(pokemonName)
     }
     console.log(pokemonData);
 
-    //Create a string of types in the case of 2 type pokemon
+    //Create a string of types in the case of 2 type pokemon and Caps the first letter of each type
     var types = "";
     for(var i = 0; i < pokemonData.types.length; i++)
     {
         if(!types)
         {
-            types = pokemonData.types[i].type.name;
+            types = pokemonData.types[i].type.name[0].toUpperCase() + pokemonData.types[i].type.name.slice(1);
         }
         else
         {
-            types += ", " + pokemonData.types[i].type.name;
+            types += ", " + pokemonData.types[i].type.name[0].toUpperCase() + pokemonData.types[i].type.name.slice(1);
         }
     }
 
@@ -92,12 +92,22 @@ async function GetPokemonData(pokemonName)
     console.log(evoData);
 
     //Start the string with the first name
-    var evolutionChain = evoData.chain.species.name;
+    var evolutionChain = evoData.chain.species.name[0].toUpperCase() + evoData.chain.species.name.slice(1);
     var evolvesTo = evoData.chain.evolves_to;
     while(evolvesTo.length)
     {
-        evolutionChain += " => " + evolvesTo[0].species.name;
-        evolvesTo = evolvesTo[0].evolves_to;
+        evolutionChain += " => " + evolvesTo[0].species.name[0].toUpperCase() +  evolvesTo[0].species.name.slice(1);
+        if(evolvesTo.length == 1)
+            evolvesTo = evolvesTo[0].evolves_to;
+        else
+        {
+            //Check for pokemon with multiple evolutions
+            for(var i = 1; i < evolvesTo.length; i++)
+            {
+                evolutionChain += " or " + evolvesTo[i].species.name[0].toUpperCase() +  evolvesTo[i].species.name.slice(1);
+            }
+            evolvesTo = evolvesTo[0].evolves_to;
+        }
     }
 
     const pokeData = new PokemonData(pokemonData.name, pokemonData.id, speciesData.generation.name, types, evolutionChain, flavorText, officalArtwork);

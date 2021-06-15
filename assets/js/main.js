@@ -116,7 +116,6 @@ function DisplayData(pokemonData, tcgData)
             break;
     }
     var pokeInformation = document.querySelector(".pokemon-information");
-    //var numArray = RandomNumbersNonRepeating(tcgData.length);
     for (var i = 0; i < tcgData.length; i++)
     {
         var divEl = document.createElement("div");
@@ -137,37 +136,6 @@ function RandomizePokemon()
 {
     var randomNumber = Math.floor(Math.random() * 897) + 1;
     SearchPokemonByNumber(randomNumber);
-}
-
-//Randomize a set up of numbers from 1 to max num without reapeading any numbers
-function RandomNumbersNonRepeating(maxNum) 
-{
-    //Change this to display more to screen
-    var maxNumbersToDisplay = 5;
-
-    var length = Math.min(maxNumbersToDisplay, maxNum);
-    var numArray = [];
-
-    while (length != numArray.length)
-    {
-        var randomNumber = Math.floor(Math.random() * maxNum);
-
-        var found = false;
-
-        for (var j = 0; j < numArray.length; j++)
-        {
-            if (numArray[j] == randomNumber)
-            {
-                found = true;
-                break;
-            }
-        }
-        if (!found)
-            numArray.push(randomNumber);
-    }
-
-    console.log(numArray);
-    return numArray;
 }
 
 //Save all our previous search data

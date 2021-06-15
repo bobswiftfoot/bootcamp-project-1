@@ -1,6 +1,14 @@
-header {
+header 
+{
     text-align: center;
     background-color: blue;
+    color: white;
+}
+
+.tcg-card img
+{
+    margin: auto;
+    display: block;
 }
 
 /*Change the color of the card divider header based on the pokemon type*/

@@ -109,28 +109,19 @@ function DisplayData(pokemonData, tcgData)
     console.log(mainType);
     document.querySelector(".card-divider").classList = "card-divider " + mainType;
 
-    //Display TCG Cards
-    while (true)
-    {
-        var tcgCard = document.querySelector(".tcg-card");
-        if (tcgCard)
-        {
-            tcgCard.remove();
-        }
-        else
-            break;
-    }
-    var pokeInformation = document.querySelector(".pokemon-information");
+    //Clear out previous cards then add new ones
+    var pokeCards = document.querySelector(".pokemon-cards");
+    pokeCards.innerHTML = "";
     for (var i = 0; i < tcgData.length; i++)
     {
         var divEl = document.createElement("div");
-        divEl.classList = "tcg-card cell small-12 medium-6 large-2";
+        divEl.classList = "tcg-card cell small-auto medium-6 large-2";
 
         var imgEl = document.createElement("img");
         imgEl.src = tcgData[i];
 
         divEl.append(imgEl);
-        pokeInformation.append(divEl);
+        pokeCards.append(divEl);
     }
 
     SaveSearchData(pokemonData, tcgData);
@@ -225,6 +216,19 @@ document.querySelector(".search-button").addEventListener("click", function ()
         SearchPokemonByNumber(parseInt(searchTerm));
     else
         SearchPokemonByName(searchTerm);
+});
+
+// Execute a function when the user releases a key on the keyboard
+document.querySelector(".input-group-field").addEventListener("keyup", function (event)
+{
+    // Number 13 is the "Enter" key on the keyboard
+    if (event.keyCode === 13) 
+    {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        document.querySelector(".search-button").click();
+    }
 });
 
 //Randomize a pokemon to search

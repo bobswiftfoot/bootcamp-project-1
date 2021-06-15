@@ -13,7 +13,6 @@
 
 <body>
   <header>
-    <!--img src="https://fontmeme.com/temporary/c43dedb6a88e4485768df65ea43a80b3.png" alt=""-->
     <h1>Pokemon Database</h1>
   </header>
 
@@ -26,10 +25,8 @@
 
   <!-- Official Artwork -->
   <section>
-    <div class="grid-x">
-      <img class="official-artwork cell small-6" style="width: 300px;"/>
-
-      <div class="input-group input-group-rounded cell small-12 medium-6 align-middle ">
+    <div class="grid-x align-center">
+      <div class="input-group input-group-rounded cell small-12 medium-8 large-4">
         <div class="grid-x">
           <p class="cell small-12 flex-container-auto">Search for Pokemon Name or Pokedex Number:</p>
           <input class="input-group-field cell small-12 flex-container-auto" type="search">
@@ -43,8 +40,10 @@
   </section>
 
   <!-- Pokemon Information -->
-  <div class="pokemon-information grid-x align-left">
-    <div class="card cell small-12 medium-6 large-2">
+  <div class="grid-x align-center">
+    <img class="official-artwork cell small-12 medium-6 large-3" style="width: 300px;" />
+
+    <div class="card cell small-12 medium-6 large-3">
       <div class="card-divider">
         <h1 class="pokemon-name"></h1>
       </div>
@@ -66,9 +65,13 @@
     </div>
   </div>
 
+  <!-- Pokemon Cards -->
+  <div class="pokemon-cards grid-x align-center"></div>
+
 
   <script src="./assets/js/pokeapi.js"></script>
   <script src="./assets/js/tcgapi.js"></script>
   <script src="./assets/js/main.js"></script>
 </body>
+
 </html>

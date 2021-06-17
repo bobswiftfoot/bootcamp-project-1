@@ -195,7 +195,7 @@ function CheckPreviousSearchesByNumber(pokemonNum)
     //Add search to previous search list
     for (var i = 0; i < previousSearches.length; i++)
     {
-        if (previousSearches[i].pokemonData.pokemonNum == pokemonNum)
+        if (previousSearches[i].pokemonData.pokedexNum == pokemonNum)
         {
             DisplayData(previousSearches[i].pokemonData, previousSearches[i].tcgData);
             return true;

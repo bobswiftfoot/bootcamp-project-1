@@ -1,8 +1,8 @@
 async function GetTCGDataByName(pokemonName)
 {
     pokemonName = pokemonName.toLowerCase();
-    var apiString = "https://api.pokemontcg.io/v1/cards?name=" + pokemonName.trim();
-
+    var apiString = "https://api.pokemontcg.io/v1/cards?name=\"" + pokemonName.trim() + "\"&pageSize=150";
+    console.log(apiString);
     //Get inital call data
     let pokemonResponse = await fetch(apiString)
     var pokemonData = null;
@@ -29,7 +29,7 @@ async function GetTCGDataByName(pokemonName)
 
 async function GetTCGDataByNumber(pokemonNumber)
 {
-    var apiString = "https://api.pokemontcg.io/v1/cards?nationalPokedexNumber=" + pokemonNumber;
+    var apiString = "https://api.pokemontcg.io/v1/cards?nationalPokedexNumber=" + pokemonNumber + "&pageSize=150";
     
     //Get inital call data
     let pokemonResponse = await fetch(apiString)
